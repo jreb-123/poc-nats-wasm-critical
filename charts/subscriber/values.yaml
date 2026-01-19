@@ -1,0 +1,14 @@
+image:
+  repository: jrebaza01/nats-subscriber
+  tag: "latest"
+  pullPolicy: Always
+
+replicaCount: 1
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 64Mi

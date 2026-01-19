@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "subscriber.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: {{ include "subscriber.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "subscriber.name" . }}
+    spec:
+      containers:
+        - name: subscriber
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
