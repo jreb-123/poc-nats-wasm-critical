@@ -17,12 +17,12 @@ spec:
         - name: subscriber
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+
           env:
             - name: NATS_URL
               value: {{ .Values.nats.url | quote }}
             - name: NATS_SUBJECT
               value: {{ .Values.nats.subject | quote }}
-
 
           resources:
 {{- toYaml .Values.resources | nindent 12 }}
@@ -33,18 +33,8 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - ps aux | grep nats-subscriber | grep -v grep
+                - pidof nats-subscriber
             initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
 {{- end }}
 
-{{- if .Values.readinessProbe.enabled }}
-          readinessProbe:
-            exec:
-              command:
-                - /bin/sh
-                - -c
-                - ps aux | grep nats-subscriber | grep -v grep
-            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
-{{- end }}
