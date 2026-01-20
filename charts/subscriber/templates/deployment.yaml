@@ -17,6 +17,12 @@ spec:
         - name: subscriber
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: NATS_URL
+              value: {{ .Values.nats.url | quote }}
+            - name: NATS_SUBJECT
+              value: {{ .Values.nats.subject | quote }}
+
 
           resources:
 {{- toYaml .Values.resources | nindent 12 }}

@@ -5,6 +5,10 @@ image:
 
 replicaCount: 1
 
+nats:
+  url: nats://nats.nats.svc.cluster.local:4222
+  subject: poc.events
+
 resources:
   requests:
     cpu: 100m
@@ -12,14 +16,3 @@ resources:
   limits:
     cpu: 500m
     memory: 256Mi
-
-livenessProbe:
-  enabled: true
-  initialDelaySeconds: 15
-  periodSeconds: 10
-
-readinessProbe:
-  enabled: true
-  initialDelaySeconds: 5
-  periodSeconds: 5
-
