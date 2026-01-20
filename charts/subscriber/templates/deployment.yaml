@@ -13,6 +13,7 @@ spec:
       labels:
         app: {{ include "subscriber.name" . }}
     spec:
+      serviceAccountName: {{ include "subscriber.fullname" . }}
       containers:
         - name: subscriber
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
