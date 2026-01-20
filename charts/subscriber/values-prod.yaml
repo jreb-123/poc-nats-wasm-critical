@@ -22,3 +22,7 @@ readinessProbe:
   enabled: true
   initialDelaySeconds: 10
   periodSeconds: 5
+
+nats:
+  url: nats://nats.nats.svc.cluster.local:4222
+  subject: poc.events
